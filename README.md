@@ -23,4 +23,21 @@ Device should be capable of measuring basic air quality and environmental parame
 
 * Fan to circulate air inside the case
 
-* Raspberry Pi for data reception
+* Raspberry Pi or Wi-Fi capable microcontroller for data reception
+
+## Raspberry Pi setup
+
+1. Start with a fresh installation of the Raspberr Pi OS Lite and establlish SSH connection.
+
+2. Activate SPI interface using `raspi-config`.
+
+3. Install PIP:
+
+`sudo apt install python3-pip`
+
+4. Install dependencies using PIP:
+
+`pip install RPi.GPIO spidev pyLoRa`
+
+## Links
+[LoRa communication between Raspberry Pi and Arduino](https://circuitdigest.com/microcontroller-projects/raspberry-pi-with-lora-peer-to-peer-communication-with-arduino)
