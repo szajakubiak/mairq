@@ -39,5 +39,21 @@ Device should be capable of measuring basic air quality and environmental parame
 
 `pip install RPi.GPIO spidev pyLoRa`
 
+## Test device
+
+* Microcontroller: clone of the Adafruit Feather 32u4
+
+* BMP280 sensor (I2C address 0x76)
+
+* SHT30 (I2C address 0x44)
+
+* MPU-9250 (I2C address 0x68)
+
+* Plantower PMS5003 PM sensor (UART)
+
 ## Links
 [LoRa communication between Raspberry Pi and Arduino](https://circuitdigest.com/microcontroller-projects/raspberry-pi-with-lora-peer-to-peer-communication-with-arduino)
+
+[Interfacing PMS5003 with Arduino](https://forums.adafruit.com/viewtopic.php?t=167487)
+
+[LoRa docs](https://lora.readthedocs.io/en/latest/)
