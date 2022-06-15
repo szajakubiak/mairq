@@ -57,3 +57,7 @@ Device should be capable of measuring basic air quality and environmental parame
 [Interfacing PMS5003 with Arduino](https://forums.adafruit.com/viewtopic.php?t=167487)
 
 [LoRa docs](https://lora.readthedocs.io/en/latest/)
+
+[PMS5003 library](https://github.com/jbanaszczyk/pms5003)
+
+[PMS5003 datasheet](https://www.digikey.jp/htmldatasheets/production/2903006/0/0/1/pms5003-series-manual.html)
