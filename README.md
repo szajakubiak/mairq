@@ -37,7 +37,21 @@ Device should be capable of measuring basic air quality and environmental parame
 
 4. Install dependencies using PIP:
 
-`pip install RPi.GPIO spidev pyLoRa`
+`pip install RPi.GPIO spidev adafruit-circuitpython-rfm9x`
+
+## Connecting LoRa module to Raspberry Pi
+
+Suggested connections:
+
+| LoRa   | Raspberry Pi |
+| :----: | :----------: |
+| SCK    | GPIO 11      |
+| MOSI   | GPIO 10      |
+| MISO   | GPIO 9       |
+| NSS    | GPIO 7       |
+| RST    | GPIO 22      |
+| DIO0   | GPIO 3       |
+
 
 ## Test device
 
@@ -53,6 +67,8 @@ Device should be capable of measuring basic air quality and environmental parame
 
 ## Links
 [LoRa communication between Raspberry Pi and Arduino](https://circuitdigest.com/microcontroller-projects/raspberry-pi-with-lora-peer-to-peer-communication-with-arduino)
+
+[LoRa and Raspberry Pi](https://learn.adafruit.com/lora-and-lorawan-radio-for-raspberry-pi)
 
 [Interfacing PMS5003 with Arduino](https://forums.adafruit.com/viewtopic.php?t=167487)
 
