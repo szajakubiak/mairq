@@ -61,3 +61,5 @@ Device should be capable of measuring basic air quality and environmental parame
 [PMS5003 library](https://github.com/jbanaszczyk/pms5003)
 
 [PMS5003 datasheet](https://www.digikey.jp/htmldatasheets/production/2903006/0/0/1/pms5003-series-manual.html)
+
+[Interfacing L80-M39 GPS module with Arduino](https://how2electronics.com/how-to-interface-quectel-l80-gps-module-with-arduino/)
