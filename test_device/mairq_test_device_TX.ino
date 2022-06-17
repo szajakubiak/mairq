@@ -6,6 +6,7 @@
 #include <Adafruit_BMP280.h>
 #include <SoftwareSerial.h>
 
+
 // Define LoRa pins
 #define RFM95_CS 1
 #define RFM95_RST 4
@@ -18,10 +19,14 @@
 RH_RF95 rf95(RFM95_CS, RFM95_INT);
 
 // Instance of the temperature and pressure sensor
-Adafruit_BMP280 bme; // I2C
+Adafruit_BMP280 bmp; // I2C
 
 // Serial port for PMS5003 PM sensor
 SoftwareSerial pmsSerial(10, 9);
+
+// Packet counter
+uint32_t packetnum = 0;
+
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
@@ -51,7 +56,7 @@ void setup() {
   }
   Serial.println("LoRa radio init OK");
 
-  if (!bme.begin(0x76)) {  
+  if (!bmp.begin(0x76)) {  
     Serial.println("Bosch BMP280 sensor init failed");
     while (1);
   }
@@ -78,30 +83,51 @@ void setup() {
   pmsSerial.write(commandSleep, sizeof(commandSleep));
 }
 
-int16_t packetnum = 0;  // packet counter, we increment per xmission
+
+char * getBMP280() {
+  char temperature[6];
+  //dtostrf(float value, min. width, decimal places, where to store)
+  dtostrf(bmp.readTemperature(), 3, 1, temperature);
+  char pressure[4];
+  dtostrf(bmp.readPressure() / 100, 3, 0, pressure);
+
+  char * results = (char *) malloc (11);
+  strcpy(results, temperature);
+  strcat(results, ",");
+  strcat(results, pressure);
+
+  return results;
+}
+
 
 void loop() {
   digitalWrite(LED_BUILTIN, HIGH);
   
   Serial.println("Sending to rf95_server");
   // Send a message to rf95_server
-  float temperature = bme.readTemperature();
-  float pressure = bme.readPressure() / 100;
-  String message;
-  message += String(packetnum);
+  char message[30];
+
+  // Add packet number
+  char packetnumchar[5];
+  itoa(packetnum, packetnumchar, 10);
+  strcpy(message, packetnumchar);
   packetnum += 1;
-  message += F(",");
-  message += String(temperature, 1);
-  message += F(",");
-  message += String(pressure, 0);
+
+  strcat(message, ",");
+  Serial.print("Before: "); Serial.println(message);
+
+  // Add BMP280
+  char * fromBMP280 = getBMP280();
+  strcat(message, fromBMP280);
+  free(fromBMP280);
+  Serial.print("After: "); Serial.println(message);
+
+  // Add termination
+  strcat(message, "\0");
   
-  int messageLength = message.length() + 1;
-  char messageBuffer[messageLength];
-  message.toCharArray(messageBuffer, messageLength);
-  
-  Serial.print("Sending "); Serial.println(messageBuffer);
+  Serial.print("Sending "); Serial.println(message);
   Serial.println("Sending..."); delay(10);
-  rf95.send(messageBuffer, messageLength);
+  rf95.send(message, sizeof(message));
 
   Serial.println("Waiting for packet to complete..."); delay(10);
   rf95.waitPacketSent();
