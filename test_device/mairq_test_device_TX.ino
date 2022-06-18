@@ -101,6 +101,17 @@ void setup() {
 }
 
 
+// This custom version of delay() ensures that the gps object
+// is being "fed".
+static void smartDelay(unsigned long ms) {
+  unsigned long start = millis();
+  do {
+    while (gpsSerial.available())
+      gps.encode(gpsSerial.read());
+  } while (millis() - start < ms);
+}
+
+
 bool gpsValid() {
   if (gps.location.isValid() && gps.date.isValid() && gps.time.isValid()) {
     return true;
@@ -231,10 +242,10 @@ void sendData() {
 void loop() {
   if (gpsValid()) {
     sendData();
-    delay(10000);
+    smartDelay(10000);
   }
   else {
     Serial.println("No valid GPS data");
-    delay(1000);
+    smartDelay(1000);
   }
 }
