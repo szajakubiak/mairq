@@ -2,6 +2,7 @@
 #include <SPI.h>
 #include <Wire.h>
 #include <RH_RF95.h>
+#include <TinyGPSPlus.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_SHT31.h>
 #include <Adafruit_BMP280.h>
@@ -25,8 +26,14 @@ Adafruit_SHT31 sht30 = Adafruit_SHT31();
 // Instance of the temperature and pressure sensor
 Adafruit_BMP280 bmp; // I2C
 
+// Instance of the TinyGPSPlus object
+TinyGPSPlus gps;
+
 // Serial port for PMS5003 PM sensor
 SoftwareSerial pmsSerial(10, 9);
+
+// Serial port for GPS module
+SoftwareSerial gpsSerial(11, 5);
 
 // Packet counter
 uint32_t packetnum = 0;
@@ -40,6 +47,7 @@ void setup() {
 
   Serial.begin(9600);
   pmsSerial.begin(9600);
+  gpsSerial.begin(9600);
   delay(100);
   
   // Transmitter node is usually used without open serial connection
@@ -93,6 +101,32 @@ void setup() {
 }
 
 
+bool gpsValid() {
+  if (gps.location.isValid() && gps.date.isValid() && gps.time.isValid()) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+
+char * getGPS() {
+  char locLat[10];
+  //dtostrf(float value, min. width, decimal places, where to store)
+  dtostrf(gps.location.lat(), 3, 6, locLat);
+  char locLng[11];
+  dtostrf(gps.location.lng(), 3, 6, locLng);
+
+  char * results = (char *) malloc (22);
+  strcpy(results, locLat);
+  strcat(results, ",");
+  strcat(results, locLng);
+
+  return results;
+}
+
+
 char * getSHT30() {
   char temperature[6];
   //dtostrf(float value, min. width, decimal places, where to store)
@@ -130,13 +164,20 @@ void loop() {
   
   Serial.println("Sending to rf95_server");
   // Send a message to rf95_server
-  char message[30];
+  char message[53];
 
   // Add packet number
   char packetnumchar[5];
   itoa(packetnum, packetnumchar, 10);
   strcpy(message, packetnumchar);
   packetnum += 1;
+
+  strcat(message, ",");
+
+  // Add GPS
+  char * fromGPS = getGPS();
+  strcat(message, fromGPS);
+  free(fromGPS);
 
   strcat(message, ",");
 
