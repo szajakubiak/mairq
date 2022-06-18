@@ -159,7 +159,7 @@ char * getBMP280() {
 }
 
 
-void loop() {
+void sendData() {
   digitalWrite(LED_BUILTIN, HIGH);
   
   Serial.println("Sending to rf95_server");
@@ -225,7 +225,16 @@ void loop() {
   }
   
   digitalWrite(LED_BUILTIN, LOW);
-  
-  delay(10000);
 }
-    
+
+
+void loop() {
+  if (gpsValid()) {
+    sendData();
+    delay(10000);
+  }
+  else {
+    Serial.println("No valid GPS data");
+    delay(1000);
+  }
+}
