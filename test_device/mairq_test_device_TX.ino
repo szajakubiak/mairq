@@ -3,6 +3,7 @@
 #include <Wire.h>
 #include <RH_RF95.h>
 #include <Adafruit_Sensor.h>
+#include <Adafruit_SHT31.h>
 #include <Adafruit_BMP280.h>
 #include <SoftwareSerial.h>
 
@@ -12,11 +13,14 @@
 #define RFM95_RST 4
 #define RFM95_INT 7
 
-// Set LoRa freq (434.0 or 915.0)
+// Set LoRa freq
 #define RF95_FREQ 433.8
 
 // Singleton instance of the radio driver
 RH_RF95 rf95(RFM95_CS, RFM95_INT);
+
+// Instance of the temperature and relative humidity sensor
+Adafruit_SHT31 sht30 = Adafruit_SHT31();
 
 // Instance of the temperature and pressure sensor
 Adafruit_BMP280 bmp; // I2C
@@ -52,20 +56,25 @@ void setup() {
 
   while (!rf95.init()) {
     Serial.println("LoRa radio init failed");
-    while (1);
+    while (1) delay(1);
   }
   Serial.println("LoRa radio init OK");
 
+  if (! sht30.begin(0x44)) {
+    Serial.println("SHT30 init failed");
+    while (1) delay(1);
+  }
+  
   if (!bmp.begin(0x76)) {  
     Serial.println("Bosch BMP280 sensor init failed");
-    while (1);
+    while (1) delay(1);
   }
   Serial.println("Bosch BMP280 sensor init OK");
 
   // Defaults after init are 434.0MHz, modulation GFSK_Rb250Fd250, +13dbM
   if (!rf95.setFrequency(RF95_FREQ)) {
     Serial.println("setFrequency failed");
-    while (1);
+    while (1) delay(1);
   }
   Serial.print("Set Freq to: "); Serial.println(RF95_FREQ);
   
@@ -81,6 +90,22 @@ void setup() {
   uint8_t commandSleep[] = { 0x42, 0x4D, 0xE4, 0x00, 0x00, 0x01, 0x73 };
   delay(2500); // PMS5003 needs some time to become responsive
   pmsSerial.write(commandSleep, sizeof(commandSleep));
+}
+
+
+char * getSHT30() {
+  char temperature[6];
+  //dtostrf(float value, min. width, decimal places, where to store)
+  dtostrf(sht30.readTemperature(), 3, 1, temperature);
+  char humidity[6];
+  dtostrf(sht30.readHumidity(), 3, 1, humidity);
+
+  char * results = (char *) malloc (13);
+  strcpy(results, temperature);
+  strcat(results, ",");
+  strcat(results, humidity);
+
+  return results;
 }
 
 
@@ -114,13 +139,18 @@ void loop() {
   packetnum += 1;
 
   strcat(message, ",");
-  Serial.print("Before: "); Serial.println(message);
 
+  // Add SHT30
+  char * fromSHT30 = getSHT30();
+  strcat(message, fromSHT30);
+  free(fromSHT30);
+
+  strcat(message, ",");
+  
   // Add BMP280
   char * fromBMP280 = getBMP280();
   strcat(message, fromBMP280);
   free(fromBMP280);
-  Serial.print("After: "); Serial.println(message);
 
   // Add termination
   strcat(message, "\0");
