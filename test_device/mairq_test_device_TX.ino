@@ -44,8 +44,7 @@ bool inDev = true;
 // A sample NMEA stream to develop app without the need
 // for beinging locked to satellites
 const char *gpsStream =
-  "$GPRMC,045103.000,A,3014.1984,N,09749.2872,W,0.67,161.46,030913,,,A*7C\r\n"
-  "$GPGGA,045104.000,3014.1985,N,09749.2873,W,1,09,1.2,211.6,M,-22.5,M,,0000*62\r\n";
+  "$GPRMC,045103.000,A,3014.1984,N,09749.2872,W,0.67,161.46,030913,,,A*7C\r\n";
 
 
 // This custom version of delay() ensures that the gps object
@@ -75,11 +74,23 @@ char * getGPS() {
   dtostrf(gps.location.lat(), 3, 6, locLat);
   char locLng[11];
   dtostrf(gps.location.lng(), 3, 6, locLng);
+  char dateYear[5];
+  dtostrf(gps.date.year(), 4, 0, dateYear);
+  char dateMonth[2];
+  dtostrf(gps.date.month(), 1, 0, dateMonth);
+  char dateDay[2];
+  dtostrf(gps.date.day(), 1, 0, dateDay);
 
-  char * results = (char *) malloc (22);
+  char * results = (char *) malloc (35);
   strcpy(results, locLat);
   strcat(results, ",");
   strcat(results, locLng);
+  strcat(results, ",");
+  strcat(results, dateYear);
+  strcat(results, "-");
+  strcat(results, dateMonth);
+  strcat(results, "-");
+  strcat(results, dateDay);
 
   return results;
 }
@@ -122,7 +133,7 @@ void sendData() {
   
   Serial.println("Sending to rf95_server");
   // Send a message to rf95_server
-  char message[53] = "";
+  char message[64] = "";
 
   // Add packet number
   char packetnumchar[5];
