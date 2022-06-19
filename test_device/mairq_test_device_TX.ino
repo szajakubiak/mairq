@@ -38,67 +38,14 @@ SoftwareSerial gpsSerial(11, 5);
 // Packet counter
 uint32_t packetnum = 0;
 
+// In development flag
+bool inDev = true;
 
-void setup() {
-  pinMode(LED_BUILTIN, OUTPUT);
-  
-  pinMode(RFM95_RST, OUTPUT);
-  digitalWrite(RFM95_RST, HIGH);
-
-  Serial.begin(9600);
-  pmsSerial.begin(9600);
-  gpsSerial.begin(9600);
-  delay(100);
-  
-  // Transmitter node is usually used without open serial connection
-  // but following line can be uncommented to see error messages at startup
-  //while (!Serial);
-
-  Serial.println("LoRa TX node with Bosch BMP280 sensor");
-
-  // Manual reset
-  digitalWrite(RFM95_RST, LOW);
-  delay(10);
-  digitalWrite(RFM95_RST, HIGH);
-  delay(10);
-
-  while (!rf95.init()) {
-    Serial.println("LoRa radio init failed");
-    while (1) delay(1);
-  }
-  Serial.println("LoRa radio init OK");
-
-  if (! sht30.begin(0x44)) {
-    Serial.println("SHT30 init failed");
-    while (1) delay(1);
-  }
-  
-  if (!bmp.begin(0x76)) {  
-    Serial.println("Bosch BMP280 sensor init failed");
-    while (1) delay(1);
-  }
-  Serial.println("Bosch BMP280 sensor init OK");
-
-  // Defaults after init are 434.0MHz, modulation GFSK_Rb250Fd250, +13dbM
-  if (!rf95.setFrequency(RF95_FREQ)) {
-    Serial.println("setFrequency failed");
-    while (1) delay(1);
-  }
-  Serial.print("Set Freq to: "); Serial.println(RF95_FREQ);
-  
-  // Defaults after init are 434.0MHz, 13dBm, Bw = 125 kHz, Cr = 4/5, Sf = 128chips/symbol, CRC on
-
-  // The default transmitter power is 13dBm, using PA_BOOST.
-  // If you are using RFM95/96/97/98 modules which uses the PA_BOOST transmitter pin, then 
-  // you can set transmitter powers from 5 to 23 dBm:
-  rf95.setTxPower(12, false);
-
-  // Send PMS5003 to sleep
-  Serial.println("Put PMS5003 To Sleep");
-  uint8_t commandSleep[] = { 0x42, 0x4D, 0xE4, 0x00, 0x00, 0x01, 0x73 };
-  delay(2500); // PMS5003 needs some time to become responsive
-  pmsSerial.write(commandSleep, sizeof(commandSleep));
-}
+// A sample NMEA stream to develop app without the need
+// for beinging locked to satellites
+const char *gpsStream =
+  "$GPRMC,045103.000,A,3014.1984,N,09749.2872,W,0.67,161.46,030913,,,A*7C\r\n"
+  "$GPGGA,045104.000,3014.1985,N,09749.2873,W,1,09,1.2,211.6,M,-22.5,M,,0000*62\r\n";
 
 
 // This custom version of delay() ensures that the gps object
@@ -126,13 +73,16 @@ char * getGPS() {
   char locLat[10];
   //dtostrf(float value, min. width, decimal places, where to store)
   dtostrf(gps.location.lat(), 3, 6, locLat);
+  Serial.print("Lat: "); Serial.println(locLat);
   char locLng[11];
   dtostrf(gps.location.lng(), 3, 6, locLng);
+  Serial.print("Lng: "); Serial.println(locLng);
 
   char * results = (char *) malloc (22);
   strcpy(results, locLat);
   strcat(results, ",");
   strcat(results, locLng);
+  Serial.print("Results: "); Serial.println(results);
 
   return results;
 }
@@ -175,7 +125,7 @@ void sendData() {
   
   Serial.println("Sending to rf95_server");
   // Send a message to rf95_server
-  char message[53];
+  char message[53] = "";
 
   // Add packet number
   char packetnumchar[5];
@@ -188,6 +138,8 @@ void sendData() {
   // Add GPS
   char * fromGPS = getGPS();
   strcat(message, fromGPS);
+  Serial.print("GPS: "); Serial.println(fromGPS);
+  Serial.print("Message: "); Serial.println(message);
   free(fromGPS);
 
   strcat(message, ",");
@@ -239,13 +191,89 @@ void sendData() {
 }
 
 
+void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
+  
+  pinMode(RFM95_RST, OUTPUT);
+  digitalWrite(RFM95_RST, HIGH);
+
+  Serial.begin(9600);
+  pmsSerial.begin(9600);
+  gpsSerial.begin(9600);
+  delay(100);
+
+  if (inDev) {
+    while (!Serial) delay(1);
+  }
+
+  // Manual reset of LoRa module
+  digitalWrite(RFM95_RST, LOW);
+  delay(10);
+  digitalWrite(RFM95_RST, HIGH);
+  delay(10);
+
+  while (!rf95.init()) {
+    Serial.println("LoRa radio init failed");
+    while (1) delay(1);
+  }
+  Serial.println("LoRa radio init OK");
+
+  if (! sht30.begin(0x44)) {
+    Serial.println("SHT30 init failed");
+    while (1) delay(1);
+  }
+  Serial.println("SHT30 sensor init OK");
+  
+  if (!bmp.begin(0x76)) {  
+    Serial.println("Bosch BMP280 sensor init failed");
+    while (1) delay(1);
+  }
+  Serial.println("BMP280 sensor init OK");
+
+  // Defaults after init are 434.0MHz, modulation GFSK_Rb250Fd250, +13dbM
+  if (!rf95.setFrequency(RF95_FREQ)) {
+    Serial.println("setFrequency failed");
+    while (1) delay(1);
+  }
+  Serial.print("Set Freq to: "); Serial.println(RF95_FREQ);
+  
+  // Defaults after init are 434.0MHz, 13dBm, Bw = 125 kHz, Cr = 4/5, Sf = 128chips/symbol, CRC on
+
+  // The default transmitter power is 13dBm, using PA_BOOST.
+  // If you are using RFM95/96/97/98 modules which uses the PA_BOOST transmitter pin, then 
+  // you can set transmitter powers from 5 to 23 dBm:
+  rf95.setTxPower(12, false);
+
+  if (inDev) {
+    while (*gpsStream)
+      gps.encode(*gpsStream++);
+  }
+
+  // Send PMS5003 to sleep
+  Serial.println("Put PMS5003 To Sleep");
+  uint8_t commandSleep[] = { 0x42, 0x4D, 0xE4, 0x00, 0x00, 0x01, 0x73 };
+  delay(2500); // PMS5003 needs some time to become responsive
+  pmsSerial.write(commandSleep, sizeof(commandSleep));
+}
+
+
 void loop() {
   if (gpsValid()) {
     sendData();
-    smartDelay(10000);
+    if (inDev) {
+      delay(10000);
+    }
+    else {
+      smartDelay(10000);
+    }
   }
   else {
     Serial.println("No valid GPS data");
-    smartDelay(1000);
+    if (inDev) {
+      delay(1000);
+    }
+    else {
+      smartDelay(1000);
+    }
   }
 }
