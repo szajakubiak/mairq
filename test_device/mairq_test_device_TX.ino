@@ -73,16 +73,13 @@ char * getGPS() {
   char locLat[10];
   //dtostrf(float value, min. width, decimal places, where to store)
   dtostrf(gps.location.lat(), 3, 6, locLat);
-  Serial.print("Lat: "); Serial.println(locLat);
   char locLng[11];
   dtostrf(gps.location.lng(), 3, 6, locLng);
-  Serial.print("Lng: "); Serial.println(locLng);
 
   char * results = (char *) malloc (22);
   strcpy(results, locLat);
   strcat(results, ",");
   strcat(results, locLng);
-  Serial.print("Results: "); Serial.println(results);
 
   return results;
 }
@@ -138,8 +135,6 @@ void sendData() {
   // Add GPS
   char * fromGPS = getGPS();
   strcat(message, fromGPS);
-  Serial.print("GPS: "); Serial.println(fromGPS);
-  Serial.print("Message: "); Serial.println(message);
   free(fromGPS);
 
   strcat(message, ",");
