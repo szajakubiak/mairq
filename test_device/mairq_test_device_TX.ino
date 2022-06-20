@@ -46,6 +46,8 @@ bool inDev = true;
 const char *gpsStream =
   "$GPRMC,045103.000,A,3014.1984,N,09749.2872,W,0.67,161.46,030913,,,A*7C\r\n";
 
+// Measurement delay
+uint32_t measurementDelay = 10000;
 
 // This custom version of delay() ensures that the gps object
 // is being "fed".
@@ -276,10 +278,10 @@ void loop() {
   if (gpsValid()) {
     sendData();
     if (inDev) {
-      delay(10000);
+      delay(measurementDelay);
     }
     else {
-      smartDelay(10000);
+      smartDelay(measurementDelay);
     }
   }
   else {
