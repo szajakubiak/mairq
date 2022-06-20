@@ -69,25 +69,25 @@ bool gpsValid() {
 
 
 char * getGPS() {
-  char locLat[10];
+  char locLat[11];
   //dtostrf(float value, min. width, decimal places, where to store)
   dtostrf(gps.location.lat(), 3, 6, locLat);
-  char locLng[11];
+  char locLng[12];
   dtostrf(gps.location.lng(), 3, 6, locLng);
   char dateYear[5];
   dtostrf(gps.date.year(), 4, 0, dateYear);
-  char dateMonth[2];
+  char dateMonth[3];
   dtostrf(gps.date.month(), 1, 0, dateMonth);
-  char dateDay[2];
+  char dateDay[3];
   dtostrf(gps.date.day(), 1, 0, dateDay);
   char timeHour[3];
   dtostrf(gps.time.hour(), 1, 0, timeHour);
-  char timeMinute[2];
+  char timeMinute[3];
   dtostrf(gps.time.minute(), 1, 0, timeMinute);
-  char timeSecond[2];
+  char timeSecond[3];
   dtostrf(gps.time.second(), 1, 0, timeSecond);
 
-  char * results = (char *) malloc (44);
+  char * results = (char *) malloc (45);
   strcpy(results, locLat);
   strcat(results, ",");
   strcat(results, locLng);
@@ -112,10 +112,10 @@ char * getSHT30() {
   char temperature[6];
   //dtostrf(float value, min. width, decimal places, where to store)
   dtostrf(sht30.readTemperature(), 3, 1, temperature);
-  char humidity[6];
+  char humidity[5];
   dtostrf(sht30.readHumidity(), 3, 1, humidity);
 
-  char * results = (char *) malloc (13);
+  char * results = (char *) malloc (11);
   strcpy(results, temperature);
   strcat(results, ",");
   strcat(results, humidity);
@@ -128,10 +128,10 @@ char * getBMP280() {
   char temperature[6];
   //dtostrf(float value, min. width, decimal places, where to store)
   dtostrf(bmp.readTemperature(), 3, 1, temperature);
-  char pressure[4];
+  char pressure[5];
   dtostrf(bmp.readPressure() / 100, 3, 0, pressure);
 
-  char * results = (char *) malloc (11);
+  char * results = (char *) malloc (10);
   strcpy(results, temperature);
   strcat(results, ",");
   strcat(results, pressure);
@@ -145,10 +145,10 @@ void sendData() {
   
   Serial.println("Sending to rf95_server");
   // Send a message to rf95_server
-  char message[73] = "";
+  char message[74] = "";
 
   // Add packet number
-  char packetnumchar[5];
+  char packetnumchar[11];
   itoa(packetnum, packetnumchar, 10);
   strcpy(message, packetnumchar);
   packetnum += 1;
@@ -173,9 +173,6 @@ void sendData() {
   char * fromBMP280 = getBMP280();
   strcat(message, fromBMP280);
   free(fromBMP280);
-
-  // Add termination
-  strcat(message, "\0");
   
   Serial.print("Sending "); Serial.println(message);
   Serial.println("Sending..."); delay(10);
