@@ -80,8 +80,14 @@ char * getGPS() {
   dtostrf(gps.date.month(), 1, 0, dateMonth);
   char dateDay[2];
   dtostrf(gps.date.day(), 1, 0, dateDay);
+  char timeHour[3];
+  dtostrf(gps.time.hour(), 1, 0, timeHour);
+  char timeMinute[2];
+  dtostrf(gps.time.minute(), 1, 0, timeMinute);
+  char timeSecond[2];
+  dtostrf(gps.time.second(), 1, 0, timeSecond);
 
-  char * results = (char *) malloc (35);
+  char * results = (char *) malloc (44);
   strcpy(results, locLat);
   strcat(results, ",");
   strcat(results, locLng);
@@ -91,6 +97,12 @@ char * getGPS() {
   strcat(results, dateMonth);
   strcat(results, "-");
   strcat(results, dateDay);
+  strcat(results, ",");
+  strcat(results, timeHour);
+  strcat(results, ":");
+  strcat(results, timeMinute);
+  strcat(results, ":");
+  strcat(results, timeSecond);
 
   return results;
 }
@@ -133,7 +145,7 @@ void sendData() {
   
   Serial.println("Sending to rf95_server");
   // Send a message to rf95_server
-  char message[64] = "";
+  char message[73] = "";
 
   // Add packet number
   char packetnumchar[5];
