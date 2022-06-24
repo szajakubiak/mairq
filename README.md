@@ -55,7 +55,7 @@ Suggested connections:
 
 ## Test device
 
-* Microcontroller: clone of the Adafruit Feather 32u4
+* Microcontroller: clone of the Adafruit Feather 32u4 with LoRa module (433 MHz version)
 
 * BMP280 sensor (I2C address 0x76)
 
@@ -68,6 +68,8 @@ Suggested connections:
 ## TODO
 
 * Data encryption for safe transmission
+
+* Checksum to verify data integrity
 
 ## Links
 [LoRa communication between Raspberry Pi and Arduino](https://circuitdigest.com/microcontroller-projects/raspberry-pi-with-lora-peer-to-peer-communication-with-arduino)
