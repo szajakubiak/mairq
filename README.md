@@ -11,7 +11,7 @@ Device should be capable of measuring basic air quality and environmental parame
 
 * Bosch Sensortec BME280 temperature, relative humidity and pressure sensor (I2C)
 
-* GPS unit (UART) to determine localization and time of the measurement
+* L80-M39 GPS module (UART) to determine localization and time of the measurement
 
 * Accelerometer (I2C) to detect when carrier on which device is mounted is stationary
 
@@ -56,6 +56,8 @@ Suggested connections:
 ## Test device
 
 * Microcontroller: clone of the Adafruit Feather 32u4 with LoRa module (433 MHz version)
+
+* L80-M39 GPS module (UART)
 
 * BMP280 sensor (I2C address 0x76)
 
