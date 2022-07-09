@@ -15,7 +15,7 @@ Device should be capable of measuring basic air quality and environmental parame
 
 * L80-M39 GPS module (UART) to determine localization and time of the measurement
 
-* Accelerometer (I2C) to detect when carrier on which device is mounted is stationary
+* MPU-6050 accelerometer (I2C) to detect when carrier on which device is mounted is stationary
 
 * LoRa radio module operating at 433 MHz (SPI)
 
