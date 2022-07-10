@@ -75,6 +75,8 @@ Suggested connections:
 
 * Checksum to verify data integrity
 
+* LoRa frequency setting as variable for easy change
+
 ## Links
 [LoRa communication between Raspberry Pi and Arduino](https://circuitdigest.com/microcontroller-projects/raspberry-pi-with-lora-peer-to-peer-communication-with-arduino)
 
