@@ -1,6 +1,6 @@
 import board
 import busio
-from digitalio import DigitalInOut, Direction, Pull
+from digitalio import DigitalInOut
 import adafruit_rfm9x
 
 CS = DigitalInOut(board.D7)
