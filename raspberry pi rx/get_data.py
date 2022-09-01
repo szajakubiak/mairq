@@ -29,16 +29,16 @@ while True:
    # If there is data in packet
    if packet is not None:
       try:
-        packet = packet.split(b"\x00")[0]
-        # Decode data
-        packet_text = str(packet, "utf-8")
+         packet = packet.split(b"\x00")[0]
+         # Decode data
+         packet_text = str(packet, "utf-8")
 
-        # Write data to file
-        with open(output, "a") as file:
-          file.write(packet_text + "\n")
+         # Write data to file
+         with open(output, "a") as file:
+            file.write(packet_text + "\n")
          
-        # Send confirmation that message was received 
-        response = bytes("OK\0", "utf-8")
-        rfm9x.send(response)
+         # Send confirmation that message was received 
+         response = bytes("OK\0", "utf-8")
+         rfm9x.send(response)
       except:
          pass
