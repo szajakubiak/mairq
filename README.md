@@ -28,7 +28,6 @@ Device should be capable of measuring basic air quality and environmental parame
 * Raspberry Pi or Wi-Fi capable microcontroller for data reception
 
 ## Raspberry Pi setup
-
 1. Start with a fresh installation of the Raspberr Pi OS Lite and establlish SSH connection.
 
 2. Activate SPI interface using `raspi-config`.
@@ -42,7 +41,6 @@ Device should be capable of measuring basic air quality and environmental parame
 `pip install RPi.GPIO spidev adafruit-circuitpython-rfm9x`
 
 ## Connecting LoRa module to Raspberry Pi
-
 Suggested connections:
 
 | LoRa   | Raspberry Pi |
@@ -56,7 +54,6 @@ Suggested connections:
 
 
 ## Test device
-
 * Microcontroller: clone of the Adafruit Feather 32u4 with LoRa module (433 MHz version)
 
 * L80-M39 GPS module (UART)
@@ -70,7 +67,6 @@ Suggested connections:
 * Plantower PMS5003 PM sensor (UART)
 
 ## TODO
-
 * Data encryption for safe transmission
 
 * Checksum to verify data integrity
