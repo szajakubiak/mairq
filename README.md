@@ -54,6 +54,8 @@ Suggested connections:
 
 
 ## Test device
+Before starting this project test device was build with the following specification:
+
 * Microcontroller: clone of the Adafruit Feather 32u4 with LoRa module (433 MHz version)
 
 * L80-M39 GPS module (UART)
@@ -67,6 +69,8 @@ Suggested connections:
 * Plantower PMS5003 PM sensor (UART)
 
 ## TODO
+* Build device using final hardware
+
 * Data encryption for safe transmission
 
 * Checksum to verify data integrity
