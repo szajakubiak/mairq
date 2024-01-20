@@ -8,23 +8,14 @@ Device should be capable of measuring basic air quality and environmental parame
 
 ## Hardware
 * Adafruit Feather RP2040 - battery management, STEMMA QT / Qwiic connector, support for Arduino and CircuitPython
-
 * Sensirion SPS30 particulate matter sensor (UART / I2C)
-
 * Bosch Sensortec BME280 temperature, relative humidity and pressure sensor (I2C)
-
 * L80-M39 GPS module (UART) to determine localization and time of the measurement
-
 * MPU-6050 accelerometer (I2C) to detect when carrier on which device is mounted is stationary
-
 * LoRa radio module operating at 433 MHz (SPI)
-
 * Step-up converter to generate 5 V power supply from battery for SPS30
-
 * Servo to open inlets and outlets to the case
-
 * Fan to circulate air inside the case
-
 * Raspberry Pi or Wi-Fi capable microcontroller for data reception
 
 ## Raspberry Pi setup
@@ -57,24 +48,16 @@ Suggested connections:
 Before starting this project test device was build with the following specification:
 
 * Microcontroller: clone of the Adafruit Feather 32u4 with LoRa module (433 MHz version)
-
 * L80-M39 GPS module (UART)
-
 * BMP280 sensor (I2C address 0x76)
-
 * SHT30 (I2C address 0x44)
-
 * MPU-9250 (I2C address 0x68)
-
 * Plantower PMS5003 PM sensor (UART)
 
 ## TODO
 * Build device using final hardware
-
 * Data encryption for safe transmission
-
 * Checksum to verify data integrity
-
 * LoRa frequency setting as variable for easy change
 
 ## Links
