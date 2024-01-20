@@ -55,6 +55,7 @@ Before starting this project test device was build with the following specificat
 * Plantower PMS5003 PM sensor (UART)
 
 ## TODO
+* Add virtual environment creation to RPi setup
 * Build device using final hardware
 * Data encryption for safe transmission
 * Checksum to verify data integrity
