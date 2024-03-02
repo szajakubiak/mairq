@@ -43,7 +43,6 @@ Suggested connections:
 | RST    | GPIO 22      |
 | DIO0   | GPIO 3       |
 
-
 ## Test device
 Before starting this project test device was build with the following specification:
 
@@ -53,13 +52,6 @@ Before starting this project test device was build with the following specificat
 * SHT30 (I2C address 0x44)
 * MPU-9250 (I2C address 0x68)
 * Plantower PMS5003 PM sensor (UART)
-
-## TODO
-* Add virtual environment creation to RPi setup
-* Build device using final hardware
-* Data encryption for safe transmission
-* Checksum to verify data integrity
-* LoRa frequency setting as variable for easy change
 
 ## Links
 [LoRa communication between Raspberry Pi and Arduino](https://circuitdigest.com/microcontroller-projects/raspberry-pi-with-lora-peer-to-peer-communication-with-arduino)
@@ -75,3 +67,11 @@ Before starting this project test device was build with the following specificat
 [PMS5003 datasheet](https://www.digikey.jp/htmldatasheets/production/2903006/0/0/1/pms5003-series-manual.html)
 
 [Interfacing L80-M39 GPS module with Arduino](https://how2electronics.com/how-to-interface-quectel-l80-gps-module-with-arduino/)
+
+## TODO
+* Add virtual environment creation to RPi setup
+* Build device using final hardware
+* Data encryption for safe transmission
+* Checksum to verify data integrity
+* LoRa frequency setting as variable for easy change
+* Design and test LoRa repeater
