@@ -68,6 +68,8 @@ Before starting this project test device was build with the following specificat
 
 [Interfacing L80-M39 GPS module with Arduino](https://how2electronics.com/how-to-interface-quectel-l80-gps-module-with-arduino/)
 
+[LoRa repeater](http://www.daveakerman.com/?p=2469)
+
 ## TODO
 * Add virtual environment creation to RPi setup
 * Build device using final hardware
