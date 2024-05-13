@@ -71,9 +71,10 @@ Before starting this project test device was build with the following specificat
 [LoRa repeater](http://www.daveakerman.com/?p=2469)
 
 ## TODO
-* Add virtual environment creation to RPi setup
+* Use virtual environment in the RPi setup
 * Build device using final hardware
-* Data encryption for safe transmission
-* Checksum to verify data integrity
-* LoRa frequency setting as variable for easy change
+* Implement data encryption for transmission
+* Implement checksum to verify data integrity
+* LoRa frequency setting as a variable for easy configuration
+* Design enclosure suitable for mobile application
 * Design and test LoRa repeater
