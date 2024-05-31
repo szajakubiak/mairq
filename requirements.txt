@@ -1,0 +1,3 @@
+RPi.GPIO
+spidev
+adafruit-circuitpython-rfm9x

@@ -29,7 +29,7 @@ Device should be capable of measuring basic air quality and environmental parame
 
 4. Install dependencies using PIP:
 
-`pip install RPi.GPIO spidev adafruit-circuitpython-rfm9x`
+`pip install -r requrements.txt`
 
 ## Connecting LoRa module to Raspberry Pi
 Suggested connections:
