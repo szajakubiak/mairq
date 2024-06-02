@@ -21,15 +21,21 @@ Device should be capable of measuring basic air quality and environmental parame
 ## Raspberry Pi setup
 1. Start with a fresh installation of the Raspberr Pi OS Lite and establlish SSH connection.
 
-2. Activate SPI interface using `raspi-config`.
+2. Activate SPI interface using:
+``` bash
+raspi-config
+```
+Select **Interface Options**, then **SPI** and **Yes**.
 
-3. Install PIP:
-
-`sudo apt install python3-pip`
+3. Install pip:
+``` bash
+sudo apt install python3-pip
+```
 
 4. Install dependencies using PIP:
-
-`pip install -r requrements.txt`
+``` bash
+pip install -r requrements.txt
+```
 
 ## Connecting LoRa module to Raspberry Pi
 Suggested connections:
