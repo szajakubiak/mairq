@@ -3,9 +3,10 @@ import busio
 from digitalio import DigitalInOut
 import adafruit_rfm9x
 
-# LoRa module pin definitions
+# LoRa module settings
 CS = DigitalInOut(board.D7)
 RESET = DigitalInOut(board.D22)
+FREQ = 433.8
 
 # Init SPI interface to communicate with LoRa module
 spi = busio.SPI(board.D11, MOSI=board.D10, MISO=board.D9)
@@ -14,7 +15,7 @@ spi = busio.SPI(board.D11, MOSI=board.D10, MISO=board.D9)
 output = "mairq_data.txt"
 
 try:
-    rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, 433.8)
+    rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, FREQ)
 except RuntimeError as error:
     print("RFM9x error: ", error)
 
