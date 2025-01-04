@@ -27,9 +27,9 @@ raspi-config
 ```
 Select **Interface Options**, then **SPI** and **Yes**.
 
-3. Install pip:
+3. Install Python with additional packages:
 ``` bash
-sudo apt install python3-pip
+sudo apt install python3 python3-pip python3-venv
 ```
 
 4. Install dependencies using PIP:
