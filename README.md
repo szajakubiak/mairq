@@ -19,7 +19,7 @@ Device should be capable of measuring basic air quality and environmental parame
 * Raspberry Pi or Wi-Fi capable microcontroller for data reception
 
 ## Raspberry Pi setup
-1. Start with a fresh installation of the Raspberr Pi OS Lite and establlish SSH connection.
+1. Start with a fresh installation of the Raspberr Pi OS Lite with SSH connection turned on.
 
 2. Activate SPI interface using:
 ``` bash
