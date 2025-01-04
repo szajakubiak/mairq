@@ -32,7 +32,13 @@ Select **Interface Options**, then **SPI** and **Yes**.
 sudo apt install python3 python3-pip python3-venv
 ```
 
-4. Install dependencies using PIP:
+4. Create and activate virtual environment:
+``` bash
+python3 -m venv mairqvenv
+source mairqvenv/bin/activate
+```
+
+5. Install dependencies using PIP:
 ``` bash
 pip install -r requrements.txt
 ```
