@@ -83,7 +83,6 @@ Before starting this project test device was build with the following specificat
 [LoRa repeater](http://www.daveakerman.com/?p=2469)
 
 ## TODO
-* Use virtual environment in the RPi setup
 * Build device using final hardware
 * Implement data encryption for transmission
 * Implement checksum to verify data integrity
