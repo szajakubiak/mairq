@@ -83,6 +83,7 @@ Before starting this project test device was build with the following specificat
 [LoRa repeater](http://www.daveakerman.com/?p=2469)
 
 ## TODO
+* Consider upgrade to RP2350
 * Build device using final hardware
 * Implement data encryption for transmission
 * Implement checksum to verify data integrity
