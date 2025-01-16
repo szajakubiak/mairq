@@ -84,6 +84,7 @@ Before starting this project test device was build with the following specificat
 
 ## TODO
 * Consider upgrade to RP2350
+* Consider using Meshtastic for communication
 * Build device using final hardware
 * Implement data encryption for transmission
 * Implement checksum to verify data integrity
