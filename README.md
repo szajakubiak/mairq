@@ -29,7 +29,7 @@ Select **Interface Options**, then **SPI** and **Yes**.
 
 3. Install Python with additional packages:
 ``` bash
-sudo apt install python3 python3-pip python3-venv
+sudo apt install python3 python3-pip python3-venv git
 ```
 
 4. Create and activate virtual environment:
@@ -38,7 +38,13 @@ python3 -m venv mairqvenv
 source mairqvenv/bin/activate
 ```
 
-5. Install dependencies using PIP:
+5. Clone the code repository:
+``` bash
+git clone https://github.com:szajakubiak/mairq.git
+cd mairq
+```
+
+6. Install dependencies using PIP:
 ``` bash
 pip install -r requrements.txt
 ```
