@@ -4,7 +4,7 @@
 ## Concept
 Device should be capable of measuring basic air quality and environmental parameters for at least one day on a single battery charging. Results should be transmitted via LoRa radio to the receiver (Raspberry Pi or Wi-Fi capable microcontroller connected to the LoRa module) immediately after measurement or as soon as there will be active connection. Results which can't be transmitted immediately should be store in the internal memory untill confirming connection. Two different modes of conducting measurements should be implemented:
 * constant delay between two consecutive measurements
-* trigger measurement when certain condition is met, e.g. when device is not moving
+* trigger measurement when a certain condition is met, e.g. when device is not moving
 
 ## Hardware
 * Adafruit Feather RP2040 - battery management, STEMMA QT / Qwiic connector, support for Arduino and CircuitPython
@@ -13,15 +13,15 @@ Device should be capable of measuring basic air quality and environmental parame
 * L80-M39 GPS module (UART) to determine localization and time of the measurement
 * MPU-6050 accelerometer (I2C) to detect when carrier on which device is mounted is stationary
 * LoRa radio module operating at 433 MHz (SPI)
-* Step-up converter to generate 5 V power supply from battery for SPS30
+* Step-up converter to generate 5 V power supply from the battery to power the SPS30
 * Servo to open inlets and outlets to the case
 * Fan to circulate air inside the case
 * Raspberry Pi or Wi-Fi capable microcontroller for data reception
 
 ## Raspberry Pi setup
-1. Start with a fresh installation of the Raspberr Pi OS Lite with SSH connection turned on.
+1. Start with a fresh installation of the Raspberr Pi OS Lite with SSH connection enabled.
 
-2. Activate SPI interface using:
+2. Activate SPI interface:
 ``` bash
 raspi-config
 ```
