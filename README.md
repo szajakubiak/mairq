@@ -90,10 +90,9 @@ Before starting this project test device was build with the following specificat
 
 ## TODO
 * Consider upgrade to RP2350
-* Consider using Meshtastic for communication
+* Design and test LoRa repeater or consider using Meshtastic for communication
 * Build device using final hardware
 * Implement data encryption for transmission
 * Implement checksum to verify data integrity
 * LoRa frequency setting as a variable for easy configuration
 * Design enclosure suitable for mobile application
-* Design and test LoRa repeater
