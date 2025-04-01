@@ -28,7 +28,7 @@ while True:
     packet = rfm9x.receive()
 
     # If there is data in packet
-    if packet is not None:
+    if packet:
         try:
             packet = packet.split(b"\x00")[0]
             # Decode data
