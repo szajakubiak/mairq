@@ -12,9 +12,8 @@ Device should be capable of measuring basic air quality and environmental parame
 * Bosch Sensortec BME280 temperature, relative humidity and pressure sensor (I2C)
 * L80-M39 GPS module (UART) to determine localization and time of the measurement
 * MPU-6050 accelerometer (I2C) to detect when carrier on which device is mounted is stationary
-* LoRa radio module operating at 433 MHz (SPI)
+* LoRa radio module (SPI)
 * Step-up converter to generate 5 V power supply from the battery to power the SPS30
-* Servo to open inlets and outlets to the case
 * Fan to circulate air inside the case
 * Raspberry Pi or Wi-Fi capable microcontroller for data reception
 
