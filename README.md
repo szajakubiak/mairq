@@ -2,9 +2,9 @@
  **M**obile **AIR** **Q**uality measuring device
 
 ## Concept
-Device should be capable of measuring basic air quality and environmental parameters for at least one day on a single battery charging. Results should be transmitted via LoRa radio to the receiver (Raspberry Pi or Wi-Fi capable microcontroller connected to the LoRa module) immediately after measurement or as soon as there will be active connection. Results which can't be transmitted immediately should be store in the internal memory untill confirming connection. Two different modes of conducting measurements should be implemented:
-* constant delay between two consecutive measurements
-* trigger measurement when a certain condition is met, e.g. when device is not moving
+Device should be capable of measuring basic air quality and environmental parameters for at least one day on a single battery charging. Results should be transmitted via LoRa radio to the receiver (Raspberry Pi or Wi-Fi capable microcontroller connected to the LoRa module) immediately after measurement or as soon as there will be an active connection. Results which can't be transmitted immediately should be store in the internal memory untill connection is established. Two different modes of conducting measurements should be implemented:
+* constant delay between two consecutive measurements;
+* trigger measurement when a certain condition is met, e.g. when device is not moving.
 
 ## Hardware
 * Adafruit Feather RP2040 - battery management, STEMMA QT / Qwiic connector, support for Arduino and CircuitPython
