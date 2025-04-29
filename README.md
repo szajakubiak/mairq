@@ -17,6 +17,18 @@ Device should be capable of measuring basic air quality and environmental parame
 * Fan to circulate air inside the case
 * Raspberry Pi or Wi-Fi capable microcontroller for data reception
 
+## Receiver hardware setup
+Suggested connections between LoRa module and Raspberry Pi:
+
+| LoRa   | Raspberry Pi |
+| :----: | :----------: |
+| SCK    | GPIO 11      |
+| MOSI   | GPIO 10      |
+| MISO   | GPIO 9       |
+| NSS    | GPIO 7       |
+| RST    | GPIO 22      |
+| DIO0   | GPIO 3       |
+
 ## Receiver software setup
 1. Start with a fresh installation of the Raspberr Pi OS Lite with SSH connection enabled.
 
@@ -47,18 +59,6 @@ cd mairq
 ``` bash
 pip install -r requrements.txt
 ```
-
-## Receiver hardware setup
-Suggested connections between LoRa module and Raspberry Pi:
-
-| LoRa   | Raspberry Pi |
-| :----: | :----------: |
-| SCK    | GPIO 11      |
-| MOSI   | GPIO 10      |
-| MISO   | GPIO 9       |
-| NSS    | GPIO 7       |
-| RST    | GPIO 22      |
-| DIO0   | GPIO 3       |
 
 ## Test device
 Before starting this project test device was build with the following specification:
