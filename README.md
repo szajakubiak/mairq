@@ -17,7 +17,7 @@ Device should be capable of measuring basic air quality and environmental parame
 * Fan to circulate air inside the case
 * Raspberry Pi or Wi-Fi capable microcontroller for data reception
 
-## Raspberry Pi setup
+## Receiver software setup
 1. Start with a fresh installation of the Raspberr Pi OS Lite with SSH connection enabled.
 
 2. Activate SPI interface:
@@ -48,8 +48,8 @@ cd mairq
 pip install -r requrements.txt
 ```
 
-## Connecting LoRa module to Raspberry Pi
-Suggested connections:
+## Receiver hardware setup
+Suggested connections between LoRa module and Raspberry Pi:
 
 | LoRa   | Raspberry Pi |
 | :----: | :----------: |
