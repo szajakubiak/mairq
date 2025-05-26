@@ -87,6 +87,8 @@ Before starting this project test device was build with the following specificat
 
 [LoRa repeater](http://www.daveakerman.com/?p=2469)
 
+[Raspberry Pi Pico MicroPython code examples - Bluetooth](https://github.com/raspberrypi/pico-micropython-examples/tree/master/bluetooth)
+
 ## TODO
 * Consider upgrade to RP2350
 * Design and test LoRa repeater or consider using Meshtastic for communication
