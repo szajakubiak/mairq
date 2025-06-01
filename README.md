@@ -6,7 +6,7 @@ Device should be capable of measuring basic air quality and environmental parame
 * constant delay between two consecutive measurements;
 * trigger measurement when a certain condition is met, e.g. when device is not moving.
 
-## Hardware
+## Measuring device hardware
 * Adafruit Feather RP2040 - battery management, STEMMA QT / Qwiic connector, support for Arduino and CircuitPython
 * Sensirion SPS30 particulate matter sensor (UART / I2C)
 * Bosch Sensortec BME280 temperature, relative humidity and pressure sensor (I2C)
